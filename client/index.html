@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WallpaersSky - HD Wallpapers</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a2a6c;
+            --secondary: #b21f1f;
+            --accent: #ff7e5f;
+            --light: #f5f7fa;
+            --dark: #2c3e50;
+            --gray: #7f8c8d;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Header Styles */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--primary));
+            padding: 1rem 5%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            margin-right: 2rem;
+        }
+        
+        .logo-container i {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-right: 10px;
+        }
+        
+        .logo-container h1 {
+            color: white;
+            font-size: 2rem;
+            letter-spacing: 1px;
+        }
+        
+        .search-container {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            margin: 0 2rem;
+        }
+        
+        #searchInput {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px 0 0 30px;
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        #searchBtn {
+            padding: 12px 25px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 0 30px 30px 0;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        #searchBtn:hover {
+            background: #ff6b4a;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            padding: 10px 15px;
+            margin: 0 5px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        
+        nav ul li a:hover, 
+        nav ul li a.active {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 16px;
+            border-radius: 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-login {
+            background: transparent;
+            border: 1px solid white;
+            color: white;
+        }
+        
+        .btn-login:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .btn-admin {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-admin:hover {
+            background: #219653;
+        }
+        
+        /* Categories */
+        .categories {
+            padding: 2rem 5%;
+        }
+        
+        .section-title {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        
+        .category-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .category-tags span {
+            background: #e0e7ff;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .category-tags span:hover,
+        .category-tags span.active {
+            background: var(--primary);
+            color: white;
+        }
+        
+        /* Gallery */
+        .gallery {
+            padding: 1rem 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .wallpaper-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+        
+        .wallpaper-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .wallpaper-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .wallpaper-info {
+            padding: 15px;
+        }
+        
+        .wallpaper-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark);
+        }
+        
+        .wallpaper-meta {
+            display: flex;
+            justify-content: space-between;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        .download-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s;
+            position: relative;
+        }
+        
+        .download-btn:hover {
+            background: #0e1a4d;
+        }
+        
+        .resolution-options {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1);
+            display: none;
+            flex-direction: column;
+        }
+        
+        .resolution-option {
+            padding: 8px 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .resolution-option:hover {
+            background: #f0f0f0;
+        }
+        
+        .download-btn:hover .resolution-options {
+            display: flex;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+        
+        .social-icons {
+            margin-top: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .social-icons i {
+            margin: 0 10px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        
+        .social-icons i:hover {
+            color: var(--accent);
+        }
+        
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            padding: 2rem 5%;
+        }
+        
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-title {
+            color: var(--dark);
+            font-size: 1.8rem;
+        }
+        
+        .admin-content {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: background 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background: #0e1a4d;
+        }
+        
+        .upload-area {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            cursor: pointer;
+            transition: border 0.3s;
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-text {
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .upload-preview {
+            max-width: 100%;
+            max-height: 300px;
+            margin-top: 1rem;
+            display: none;
+            border-radius: 5px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo-container,
+            .search-container,
+            nav {
+                width: 100%;
+                margin: 10px 0;
+            }
+            
+            nav ul {
+                justify-content: center;
+            }
+            
+            .auth-buttons {
+                margin-top: 15px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .category-tags {
+                justify-content: center;
+            }
+        }
+        
+        /* Tabs */
+        .tabs {
+            display: flex;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--gray);
+            position: relative;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+        }
+        
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* Stats */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 10px 0;
+        }
+        
+        .stat-label {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--success);
+            color: white;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <i class="fas fa-cloud-sun"></i>
+            <h1>WallpaersSky</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search wallpapers...">
+            <button id="searchBtn"><i class="fas fa-search"></i></button>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">Popular</a></li>
+                <li><a href="#">Collections</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="btn btn-login" id="loginBtn">Login</button>
+            <button class="btn btn-admin" id="adminBtn">Admin Panel</button>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+        <section class="categories">
+            <h2 class="section-title">Featured Categories</h2>
+            <div class="category-tags">
+                <span class="active">All</span>
+                <span>Nature</span>
+                <span>Mountains</span>
+                <span>Beaches</span>
+                <span>Cities</span>
+                <span>Animals</span>
+                <span>Abstract</span>
+                <span>Space</span>
+            </div>
+        </section>
+
+        <section class="gallery" id="gallery">
+            <!-- Wallpapers will be loaded here dynamically -->
+        </section>
+    </main>
+
+    <!-- Admin Panel (Hidden by default) -->
+    <section class="admin-panel" id="adminPanel">
+        <div class="admin-header">
+            <h2 class="admin-title">Admin Dashboard</h2>
+            <button class="btn btn-login" id="backToSiteBtn">Back to Site</button>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="dashboard">Dashboard</div>
+            <div class="tab" data-tab="upload">Upload Wallpaper</div>
+            <div class="tab" data-tab="manage">Manage Wallpapers</div>
+        </div>
+        
+        <div class="admin-content">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboardTab">
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <i class="fas fa-image fa-2x"></i>
+                        <div class="stat-value" id="totalWallpapers">0</div>
+                        <div class="stat-label">Total Wallpapers</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-download fa-2x"></i>
+                        <div class="stat-value" id="totalDownloads">0</div>
+                        <div class="stat-label">Total Downloads</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-users fa-2x"></i>
+                        <div class="stat-value" id="totalUsers">0</div>
+                        <div class="stat-label">Registered Users</div>
+                    </div>
+                    <div class="stat-card">
+                        <i class="fas fa-heart fa-2x"></i>
+                        <div class="stat-value" id="totalLikes">0</div>
+                        <div class="stat-label">Total Likes</div>
+                    </div>
+                </div>
+                
+                <h3>Recent Activity</h3>
+                <div id="recentActivity" style="margin-top: 20px; background: #f9f9f9; padding: 15px; border-radius: 5px;">
+                    <p>No recent activity</p>
+                </div>
+            </div>
+            
+            <!-- Upload Tab -->
+            <div class="tab-content" id="uploadTab">
+                <form id="uploadForm">
+                    <div class="form-group">
+                        <label for="wallpaperTitle">Wallpaper Title</label>
+                        <input type="text" id="wallpaperTitle" class="form-control" placeholder="Enter wallpaper title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wallpaperCategory">Category</label>
+                        <select id="wallpaperCategory" class="form-control" required>
+                            <option value="">Select a category</option>
+                            <option value="Nature">Nature</option>
+                            <option value="Mountains">Mountains</option>
+                            <option value="Beaches">Beaches</option>
+                            <option value="Cites">Cites</option>
+                            <option value="Animals">Animals</option>
+                            <option value="Abstract">Abstract</option>
+                            <option value="Space">Space</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="wallpaperDescription">Description</label>
+                        <textarea id="wallpaperDescription" class="form-control" rows="3" placeholder="Enter description"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Upload Image</label>
+                        <div class="upload-area" id="uploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p class="upload-text">Click to upload or drag and drop</p>
+                            <p>PNG, JPG, JPEG (Max 10MB)</p>
+                            <input type="file" id="wallpaperFile" accept="image/*" style="display: none;">
+                            <img id="uploadPreview" class="upload-preview">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn-primary">Upload Wallpaper</button>
+                </form>
+            </div>
+            
+            <!-- Manage Tab -->
+            <div class="tab-content" id="manageTab">
+                <div class="search-container" style="margin-bottom: 20px;">
+                    <input type="text" id="adminSearch" class="form-control" placeholder="Search wallpapers...">
+                </div>
+                
+                <div class="gallery" id="adminGallery">
+                    <!-- Admin wallpapers will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 WallpaersSky. All rights reserved.</p>
+        <div class="social-icons">
+            <i class="fab fa-facebook"></i>
+            <i class="fab fa-twitter"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-pinterest"></i>
+        </div>
+    </footer>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Sample wallpaper data
+        let wallpapers = [
+            { 
+                id: 1, 
+                title: "Mountain Sunrise", 
+                category: "Mountains", 
+                downloads: 1242, 
+                likes: 845,
+                date: "2023-07-15",
+                description: "Beautiful sunrise over snow-capped mountains",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            { 
+                id: 2, 
+                title: "Ocean Sunset", 
+                category: "Beaches", 
+                downloads: 986, 
+                likes: 721,
+                date: "2023-07-10",
+                description: "Stunning sunset over calm ocean waters",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            { 
+                id: 3, 
+                title: "Forest Pathway", 
+                category: "Nature", 
+                downloads: 1567, 
+                likes: 1023,
+                date: "2023-07-05",
+                description: "Mystical pathway through ancient forest",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            { 
+                id: 4, 
+                title: "City Skyline", 
+                category: "Cites", 
+                downloads: 2105, 
+                likes: 1567,
+                date: "2023-06-28",
+                description: "Modern city skyline at twilight",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            { 
+                id: 5, 
+                title: "Northern Lights", 
+                category: "Nature", 
+                downloads: 2876, 
+                likes: 2104,
+                date: "2023-06-20",
+                description: "Aurora borealis in the night sky",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            },
+            { 
+                id: 6, 
+                title: "Desert Dunes", 
+                category: "Nature", 
+                downloads: 876, 
+                likes: 645,
+                date: "2023-06-15",
+                description: "Sand dunes at sunset in the desert",
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            }
+        ];
+
+        // Initialize gallery
+        function initGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            wallpapers.forEach(wallpaper => {
+                const card = createWallpaperCard(wallpaper);
+                gallery.appendChild(card);
+            });
+        }
+        
+        // Create wallpaper card
+        function createWallpaperCard(wallpaper) {
+            const card = document.createElement('div');
+            card.className = 'wallpaper-card';
+            card.innerHTML = `
+                <img src="https://picsum.photos/400/300?random=${wallpaper.id}" alt="${wallpaper.title}" class="wallpaper-img">
+                <div class="wallpaper-info">
+                    <div class="wallpaper-title">${wallpaper.title}</div>
+                    <div class="wallpaper-meta">
+                        <span>${wallpaper.category}</span>
+                        <span><i class="fas fa-heart"></i> ${wallpaper.likes}</span>
+                        <span><i class="fas fa-download"></i> ${wallpaper.downloads}</span>
+                    </div>
+                    <button class="download-btn">
+                        Download HD
+                        <div class="resolution-options">
+                            ${wallpaper.resolutions.map(res => 
+                                `<div class="resolution-option" data-id="${wallpaper.id}" data-res="${res}">${res}</div>`
+                            ).join('')}
+                        </div>
+                    </button>
+                </div>
+            `;
+            return card;
+        }
+
+        // Search functionality
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') performSearch();
+        });
+
+        function performSearch() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const results = wallpapers.filter(wp => 
+                wp.title.toLowerCase().includes(searchTerm) || 
+                wp.category.toLowerCase().includes(searchTerm) ||
+                wp.description.toLowerCase().includes(searchTerm)
+            );
+            
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            if (results.length > 0) {
+                results.forEach(wallpaper => {
+                    const card = createWallpaperCard(wallpaper);
+                    gallery.appendChild(card);
+                });
+            } else {
+                gallery.innerHTML = '<p class="no-results" style="grid-column: 1 / -1; text-align: center; padding: 2rem;">No wallpapers found. Try another search term.</p>';
+            }
+        }
+
+        // Admin panel functionality
+        document.getElementById('adminBtn').addEventListener('click', showAdminPanel);
+        document.getElementById('backToSiteBtn').addEventListener('click', showMainContent);
+        document.getElementById('loginBtn').addEventListener('click', showAdminPanel);
+        
+        function showAdminPanel() {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('adminPanel').style.display = 'block';
+            updateAdminStats();
+            initAdminGallery();
+        }
+        
+        function showMainContent() {
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('adminPanel').style.display = 'none';
+        }
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}Tab`).classList.add('active');
+            });
+        });
+        
+        // File upload
+        document.getElementById('uploadArea').addEventListener('click', () => {
+            document.getElementById('wallpaperFile').click();
+        });
+        
+        document.getElementById('wallpaperFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const preview = document.getElementById('uploadPreview');
+                    preview.src = event.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        // Form submission
+        document.getElementById('uploadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('wallpaperTitle').value;
+            const category = document.getElementById('wallpaperCategory').value;
+            const description = document.getElementById('wallpaperDescription').value;
+            const file = document.getElementById('wallpaperFile').files[0];
+            
+            if (!file) {
+                showToast('Please select an image to upload', 'warning');
+                return;
+            }
+            
+            // Create new wallpaper object
+            const newWallpaper = {
+                id: wallpapers.length + 1,
+                title,
+                category,
+                description,
+                downloads: 0,
+                likes: 0,
+                date: new Date().toISOString().split('T')[0],
+                resolutions: ["1920x1080", "2560x1440", "3840x2160"]
+            };
+            
+            // Add to collection
+            wallpapers.unshift(newWallpaper);
+            
+            // Reset form
+            this.reset();
+            document.getElementById('uploadPreview').style.display = 'none';
+            
+            // Show success message
+            showToast('Wallpaper uploaded successfully!', 'success');
+            
+            // Update gallery
+            if (document.getElementById('manageTab').classList.contains('active')) {
+                initAdminGallery();
+            }
+            
+            // Update stats
+            updateAdminStats();
+            
+            // Add to recent activity
+            addRecentActivity(`Uploaded wallpaper: "${title}"`);
+        });
+        
+        // Initialize admin gallery
+        function initAdminGallery() {
+            const gallery = document.getElementById('adminGallery');
+            gallery.innerHTML = '';
+            
+            wallpapers.forEach(wallpaper => {
+                const card = document.createElement('div');
+                card.className = 'wallpaper-card';
+                card.innerHTML = `
+                    <img src="https://picsum.photos/400/300?random=${wallpaper.id}" alt="${wallpaper.title}" class="wallpaper-img">
+                    <div class="wallpaper-info">
+                        <div class="wallpaper-title">${wallpaper.title}</div>
+                        <div class="wallpaper-meta">
+                            <span>${wallpaper.category}</span>
+                            <span><i class="fas fa-download"></i> ${wallpaper.downloads}</span>
+                            <span>${wallpaper.date}</span>
+                        </div>
+                        <div style="display: flex; gap: 10px; margin-top: 10px;">
+                            <button class="btn-primary" style="flex: 1;" onclick="editWallpaper(${wallpaper.id})">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                            <button class="btn" style="flex: 1; background: ${wallpaper.likes > 0 ? '#e74c3c' : '#95a5a6'}; color: white;" onclick="deleteWallpaper(${wallpaper.id})">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                `;
+                gallery.appendChild(card);
+            });
+        }
+        
+        // Update admin stats
+        function updateAdminStats() {
+            document.getElementById('totalWallpapers').textContent = wallpapers.length;
+            
+            const totalDownloads = wallpapers.reduce((sum, wp) => sum + wp.downloads, 0);
+            document.getElementById('totalDownloads').textContent = totalDownloads;
+            
+            const totalLikes = wallpapers.reduce((sum, wp) => sum + wp.likes, 0);
+            document.getElementById('totalLikes').textContent = totalLikes;
+            
+            // Random user count (for demo)
+            document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 1000) + 500;
+        }
+        
+        // Add recent activity
+        function addRecentActivity(text) {
+            const activityDiv = document.getElementById('recentActivity');
+            const activityItem = document.createElement('div');
+            activityItem.className = 'activity-item';
+            activityItem.innerHTML = `
+                <div style="display: flex; align-items: center; padding: 10px; border-bottom: 1px solid #eee;">
+                    <div style="background: #e0e7ff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div>
+                        <strong>Admin</strong> ${text}
+                        <div style="font-size: 0.8rem; color: #95a5a6;">Just now</div>
+                    </div>
+                </div>
+            `;
+            
+            // If "No recent activity" is showing, remove it
+            if (activityDiv.firstChild && activityDiv.firstChild.tagName === 'P') {
+                activityDiv.removeChild(activityDiv.firstChild);
+            }
+            
+            activityDiv.insertBefore(activityItem, activityDiv.firstChild);
+        }
+        
+        // Delete wallpaper
+        function deleteWallpaper(id) {
+            if (confirm('Are you sure you want to delete this wallpaper?')) {
+                wallpapers = wallpapers.filter(wp => wp.id !== id);
+                initAdminGallery();
+                updateAdminStats();
+                showToast('Wallpaper deleted successfully', 'success');
+                addRecentActivity(`Deleted wallpaper ID: ${id}`);
+            }
+        }
+        
+        // Edit wallpaper (placeholder)
+        function editWallpaper(id) {
+            showToast('Edit functionality would open a modal in a full implementation', 'info');
+        }
+        
+        // Show toast notification
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = 'toast show';
+            
+            // Set color based on type
+            if (type === 'success') toast.style.background = 'var(--success)';
+            else if (type === 'warning') toast.style.background = 'var(--warning)';
+            else if (type === 'error') toast.style.background = 'var(--danger)';
+            else if (type === 'info') toast.style.background = 'var(--primary)';
+            
+            // Hide after 3 seconds
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+        
+        // Download resolution
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('resolution-option')) {
+                const id = e.target.getAttribute('data-id');
+                const res = e.target.getAttribute('data-res');
+                const wallpaper = wallpapers.find(wp => wp.id == id);
+                
+                if (wallpaper) {
+                    // Increment download count
+                    wallpaper.downloads++;
+                    
+                    // Show download message
+                    showToast(`Downloading ${wallpaper.title} in ${res} resolution...`, 'success');
+                    
+                    // In a real app, this would trigger a download
+                    // For demo, we'll simulate a download
+                    setTimeout(() => {
+                        showToast('Download complete!', 'success');
+                    }, 1500);
+                }
+            }
+        });
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            initGallery();
+            
+            // Add some recent activities
+            setTimeout(() => {
+                addRecentActivity('Logged in to admin dashboard');
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
+
+<script>
+  // API configuration
+  const API_BASE_URL = 'http://localhost:5000/api';
+
+  // Function to fetch wallpapers from the backend
+  async function fetchWallpapers() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/wallpapers`);
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching wallpapers:', error);
+      return [];
+    }
+  }
+
+  // Initialize gallery
+  async function initGallery() {
+    const gallery = document.getElementById('gallery');
+    gallery.innerHTML = '<p>Loading wallpapers...</p>';
+    
+    const wallpapers = await fetchWallpapers();
+    
+    if (wallpapers.length === 0) {
+      gallery.innerHTML = '<p class="no-results">No wallpapers found.</p>';
+      return;
+    }
+    
+    gallery.innerHTML = '';
+    wallpapers.forEach(wallpaper => {
+      const card = createWallpaperCard(wallpaper);
+      gallery.appendChild(card);
+    });
+  }
+
+  // Create wallpaper card with backend URL
+  function createWallpaperCard(wallpaper) {
+    const card = document.createElement('div');
+    card.className = 'wallpaper-card';
+    card.innerHTML = `
+      <img src="${API_BASE_URL}/uploads/${wallpaper.filename}" alt="${wallpaper.title}" class="wallpaper-img">
+      <div class="wallpaper-info">
+        <div class="wallpaper-title">${wallpaper.title}</div>
+        <div class="wallpaper-meta">
+          <span>${wallpaper.category}</span>
+          <span><i class="fas fa-heart"></i> ${wallpaper.likes}</span>
+          <span><i class="fas fa-download"></i> ${wallpaper.downloads}</span>
+        </div>
+        <button class="download-btn">
+          Download HD
+          <div class="resolution-options">
+            ${wallpaper.resolutions.map(res => 
+              `<div class="resolution-option" data-id="${wallpaper.id}" data-res="${res}">${res}</div>`
+            ).join('')}
+          </div>
+        </button>
+      </div>
+    `;
+    return card;
+  }
+
+  // Update form submission to use backend
+  document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const title = document.getElementById('wallpaperTitle').value;
+    const category = document.getElementById('wallpaperCategory').value;
+    const description = document.getElementById('wallpaperDescription').value;
+    const file = document.getElementById('wallpaperFile').files[0];
+    
+    if (!file) {
+      showToast('Please select an image to upload', 'warning');
+      return;
+    }
+    
+    // Create FormData
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('category', category);
+    formData.append('description', description);
+    formData.append('image', file);
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/wallpapers`, {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) throw new Error('Upload failed');
+      
+      const newWallpaper = await response.json();
+      
+      // Reset form
+      this.reset();
+      document.getElementById('uploadPreview').style.display = 'none';
+      
+      // Show success message
+      showToast('Wallpaper uploaded successfully!', 'success');
+      
+      // Update gallery
+      if (document.getElementById('manageTab').classList.contains('active')) {
+        initAdminGallery();
+      }
+      
+      // Update stats
+      updateAdminStats();
+      
+      // Add to recent activity
+      addRecentActivity(`Uploaded wallpaper: "${title}"`);
+      
+    } catch (error) {
+      showToast('Error uploading wallpaper', 'error');
+      console.error('Upload error:', error);
+    }
+  });
+
+  // Update delete function to use backend
+  async function deleteWallpaper(id) {
+    if (confirm('Are you sure you want to delete this wallpaper?')) {
+      try {
+        const response = await fetch(`${API_BASE_URL}/wallpapers/${id}`, {
+          method: 'DELETE'
+        });
+        
+        if (!response.ok) throw new Error('Delete failed');
+        
+        // Update UI
+        initAdminGallery();
+        updateAdminStats();
+        showToast('Wallpaper deleted successfully', 'success');
+        addRecentActivity(`Deleted wallpaper ID: ${id}`);
+        
+      } catch (error) {
+        showToast('Error deleting wallpaper', 'error');
+        console.error('Delete error:', error);
+      }
+    }
+  }
+
+  // Update admin gallery initialization
+  async function initAdminGallery() {
+    const gallery = document.getElementById('adminGallery');
+    gallery.innerHTML = '';
+    
+    const wallpapers = await fetchWallpapers();
+    
+    if (wallpapers.length === 0) {
+      gallery.innerHTML = '<p>No wallpapers found</p>';
+      return;
+    }
+    
+    wallpapers.forEach(wallpaper => {
+      const card = document.createElement('div');
+      card.className = 'wallpaper-card';
+      card.innerHTML = `
+        <img src="${API_BASE_URL}/uploads/${wallpaper.filename}" alt="${wallpaper.title}" class="wallpaper-img">
+        <div class="wallpaper-info">
+          <div class="wallpaper-title">${wallpaper.title}</div>
+          <div class="wallpaper-meta">
+            <span>${wallpaper.category}</span>
+            <span><i class="fas fa-download"></i> ${wallpaper.downloads}</span>
+            <span>${wallpaper.date}</span>
+          </div>
+          <div style="display: flex; gap: 10px; margin-top: 10px;">
+            <button class="btn-primary" style="flex: 1;" onclick="editWallpaper(${wallpaper.id})">
+              <i class="fas fa-edit"></i> Edit
+            </button>
+            <button class="btn" style="flex: 1; background: ${wallpaper.likes > 0 ? '#e74c3c' : '#95a5a6'}; color: white;" onclick="deleteWallpaper(${wallpaper.id})">
+              <i class="fas fa-trash"></i> Delete
+            </button>
+          </div>
+        </div>
+      `;
+      gallery.appendChild(card);
+    });
+  }
+
+  // Update stats function
+  async function updateAdminStats() {
+    const wallpapers = await fetchWallpapers();
+    
+    document.getElementById('totalWallpapers').textContent = wallpapers.length;
+    
+    const totalDownloads = wallpapers.reduce((sum, wp) => sum + wp.downloads, 0);
+    document.getElementById('totalDownloads').textContent = totalDownloads;
+    
+    const totalLikes = wallpapers.reduce((sum, wp) => sum + wp.likes, 0);
+    document.getElementById('totalLikes').textContent = totalLikes;
+    
+    // Random user count (for demo)
+    document.getElementById('totalUsers').textContent = Math.floor(Math.random() * 1000) + 500;
+  }
+
+  // Initialize the page
+  document.addEventListener('DOMContentLoaded', async function() {
+    await initGallery();
+    
+    // Add some recent activities
+    setTimeout(() => {
+      addRecentActivity('Logged in to admin dashboard');
+    }, 1000);
+  });
+</script>
